@@ -7,9 +7,15 @@ namespace WordPredictor
 {
     public class Predictor
     {
+        // -- Variables
+        // -------------------------------------------------------------------------------------------------------------
         private readonly Dictionary<string, Dictionary<string, int>> 
-            _items = new Dictionary<string, Dictionary<string, int>>();
-        private readonly char[] _tokenDelimeter = {' '};
+            _items = new Dictionary<string, Dictionary<string, int>>(); // Dictonary of strings to lookup
+        
+        private readonly char[] _tokenDelimeter = {' '}; // Delimeter between words
+        
+        // -- Methods
+        // -------------------------------------------------------------------------------------------------------------
         
         /// <summary>
         /// Train the predictor with a string, and return the 
@@ -19,22 +25,33 @@ namespace WordPredictor
         /// <returns></returns>
         public List<string> Predict(string input)
         {
-            var tokens = input.Split(_tokenDelimeter, StringSplitOptions.RemoveEmptyEntries);
-            var previousBuilder = new StringBuilder();
+            // -- Variables -- //
+            var tokens = input.Split(_tokenDelimeter, StringSplitOptions.RemoveEmptyEntries); // words in input
+            var previousBuilder = new StringBuilder(); //
             Dictionary<string, int> nextFullList;
+            
+            // Tokens are the words in the given input //
             foreach (var token in tokens)
             {
                 nextFullList = GetOrCreate(_items, previousBuilder.ToString());
                 if (nextFullList.ContainsKey(token))
+                {
                     nextFullList[token] += 1;
+                }
                 else
+                {
                     nextFullList.Add(token, 1);
+                }
 
                 if (previousBuilder.Length > 0)
+                {
                     previousBuilder.Append(" ");
+                }
                 previousBuilder.Append(token);
             }
+            
             nextFullList = GetOrCreate(_items, previousBuilder.ToString());
+            
             var prediction = (from x in nextFullList
                 orderby x.Value descending
                 select x.Key).ToList();

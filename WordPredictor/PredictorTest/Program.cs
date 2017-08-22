@@ -9,32 +9,34 @@ namespace PredictorTest
     {
         static void Main(string[] args)
         {
-
-            // Instantiate predictor and train it
-            // ------------------------------------------------
+            // ** Instantiate predictor and train it ** //
             Predictor target = new Predictor();
             BookTrain(target, "/Users/tyler.w.sriver/Downloads/training.txt");
             bool finish = false;
 
-            // -- Accept predict entries
-            // ------------------------------------------
-            while (!finish)
+            do // ** Accept predict entries ** //
             {
-                // Get Line and Print:
-                // ------------------------------------
-                string word = Console.ReadLine();
-                PrintPredictions(CleanEntries(target.Predict(word)));
+                // Get Line and Print: 
+                string word = Console.ReadLine(); // Read input
+                var predictions = target.Predict(word); // Get Predictions
+                predictions = CleanEntries(predictions); // Clean the words
+                PrintPredictions(predictions); // Print the predictions
 
-                // Ending?:
-                // -----------------------------------
+                // Ending?
                 if (word == "end")
                 {
                     finish = true;
                 }
-            }
+            } while (!finish);
+            Console.WriteLine("Shutting down ... ");
 
-        } // END
+        } // END MAIN
 
+        /// <summary>
+        /// Train the predictor on a large text file as input
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="fileLocation"></param>
         public static void BookTrain(Predictor target, string fileLocation)
         {
             string line;
@@ -57,13 +59,24 @@ namespace PredictorTest
             Console.WriteLine("***************************************************************************");
         }
 
+        /// <summary>
+        /// Print out first 4 predictioins to Console
+        /// </summary>
+        /// <param name="predict"></param>
         public static void PrintPredictions(List<string> predict)
         {
+            // Assign count based on num entries 
+            // To display no more than 4
+            int count = 
+                ( predict.Count < 4 ) 
+                    ? predict.Count 
+                    : 4;
+            
             Console.WriteLine("***************************************************************************");
             Console.WriteLine("Total Predictions: " + predict.Count);
             Console.WriteLine("---------------------------------------------------------------------------");
             Console.WriteLine();
-            for (int i = 0; i < predict.Count; i++)
+            for (int i = 0; i < count; i++)
             {
                 if (i < 3)
                 {
@@ -76,10 +89,13 @@ namespace PredictorTest
             }
             Console.WriteLine();
             Console.WriteLine("---------------------------------------------------------------------------");
-            Console.WriteLine();
-
         }
 
+        /// <summary>
+        /// Clean predictions of erroneous special characters
+        /// </summary>
+        /// <param name="stringList"></param>
+        /// <returns></returns>
         public static List<string> CleanEntries(List<string> stringList)
         {
             List<string> clean = new List<string>();
@@ -104,7 +120,6 @@ namespace PredictorTest
                 cleanWord = word.Replace("=", "");
                 cleanWord = word.Replace("+", "");
                 clean.Add(cleanWord);
-
             }
             return clean;
         } 
