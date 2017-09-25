@@ -102,23 +102,23 @@ namespace PredictorTest
             foreach (string word in stringList)
             {
                 string cleanWord = word.Replace(".", "");
-                cleanWord = word.Replace(",", "");
-                cleanWord = word.Replace("'", "");
-                cleanWord = word.Replace("\"", "");
-                cleanWord = word.Replace(")", "");
-                cleanWord = word.Replace("(", "");
-                cleanWord = word.Replace(":", "");
-                cleanWord = word.Replace(";", "");
-                cleanWord = word.Replace("?", "");
-                cleanWord = word.Replace("!", "");
-                cleanWord = word.Replace("\\", "");
-                cleanWord = word.Replace("/", "");
-                cleanWord = word.Replace("`", "");
-                cleanWord = word.Replace("-", "");
-                cleanWord = word.Replace("~", "");
-                cleanWord = word.Replace("*", "");
-                cleanWord = word.Replace("=", "");
-                cleanWord = word.Replace("+", "");
+                cleanWord = cleanWord.Replace(",", "");
+                cleanWord = cleanWord.Replace("'", "");
+                cleanWord = cleanWord.Replace("\"", "");
+                cleanWord = cleanWord.Replace(")", "");
+                cleanWord = cleanWord.Replace("(", "");
+                cleanWord = cleanWord.Replace(":", "");
+                cleanWord = cleanWord.Replace(";", "");
+                cleanWord = cleanWord.Replace("?", "");
+                cleanWord = cleanWord.Replace("!", "");
+                cleanWord = cleanWord.Replace("\\", "");
+                cleanWord = cleanWord.Replace("/", "");
+                cleanWord = cleanWord.Replace("`", "");
+                cleanWord = cleanWord.Replace("-", "");
+                cleanWord = cleanWord.Replace("~", "");
+                cleanWord = cleanWord.Replace("*", "");
+                cleanWord = cleanWord.Replace("=", "");
+                cleanWord = cleanWord.Replace("+", "");
                 clean.Add(cleanWord);
             }
             return clean;
