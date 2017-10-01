@@ -11,7 +11,7 @@ namespace PredictorTest
         {
             // ** Instantiate predictor and train it ** //
             Predictor target = new Predictor();
-            BookTrain(target, "C:/Users/tyler/OneDrive/Documents/GitHub/WordPredictor/WordPredictor/PredictorTest/training.txt");
+            BookTrain(target, "/Users/tyler.w.sriver/Documents/GitHub Repos/WordPredictor/WordPredictor/PredictorTest/training.txt");
             bool finish = false;
 
             do // ** Accept predict entries ** //

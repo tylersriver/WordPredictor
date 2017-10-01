@@ -84,10 +84,10 @@ namespace WordPredictor
         /// <returns></returns>
         public static List<string> CleanEntries(List<string> stringList)
         {
-            List<string> clean = new List<string>();
-            foreach (string word in stringList)
+            var clean = new List<string>();
+            foreach (var word in stringList)
             {
-                string cleanWord = word.Replace(".", "");
+                var cleanWord = word.Replace(".", "");
                 cleanWord = cleanWord.Replace(",", "");
                 cleanWord = cleanWord.Replace("'", "");
                 cleanWord = cleanWord.Replace("\"", "");
