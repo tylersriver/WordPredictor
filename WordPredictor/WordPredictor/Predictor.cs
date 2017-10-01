@@ -16,14 +16,15 @@ namespace WordPredictor
         
         // -- Methods
         // -------------------------------------------------------------------------------------------------------------
-        
+
         /// <summary>
         /// Train the predictor with a string, and return the 
         /// predictions
         /// </summary>
         /// <param name="input"></param>
+        /// <param name="isDisplay"></param>
         /// <returns></returns>
-        public List<string> Predict(string input)
+        public List<string> Predict(string input, bool isDisplay)
         {
             // -- Variables -- //
             var tokens = input.Split(_tokenDelimeter, StringSplitOptions.RemoveEmptyEntries); // words in input
@@ -56,7 +57,7 @@ namespace WordPredictor
                 orderby x.Value descending
                 select x.Key).ToList();
 
-            return CleanEntries(prediction);
+            return (isDisplay) ? CleanEntries(prediction) : prediction;
         }
         
         /// <summary>
