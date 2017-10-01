@@ -11,7 +11,8 @@ namespace PredictorTest
         {
             // ** Instantiate predictor and train it ** //
             Predictor target = new Predictor();
-            BookTrain(target, "/Users/tyler.w.sriver/Documents/GitHub Repos/WordPredictor/WordPredictor/PredictorTest/training.txt");
+            const string trainFile = "/Users/tyler.w.sriver/Documents/GitHub Repos/WordPredictor/WordPredictor/PredictorTest/training.txt";
+            BookTrain(target, trainFile, true);
             bool finish = false;
 
             do // ** Accept predict entries ** //
@@ -19,10 +20,10 @@ namespace PredictorTest
                 // Get Line and Print: 
                 string word = Console.ReadLine(); // Read input
                 var predictions = target.Predict(word); // Get Predictions
-                PrintPredictions(predictions); // Print the predictions
+                LogPredictions(predictions); // Print the predictions
 
                 // Ending?
-                if (word == "end")
+                if (word == "000")
                 {
                     finish = true;
                 }
@@ -36,7 +37,8 @@ namespace PredictorTest
         /// </summary>
         /// <param name="target"></param>
         /// <param name="fileLocation"></param>
-        public static void BookTrain(Predictor target, string fileLocation)
+        /// <param name="isLog"></param>
+        public static void BookTrain(Predictor target, string fileLocation, bool isLog)
         {
             string line;
             int counter = 0;
@@ -46,12 +48,13 @@ namespace PredictorTest
             while ((line = file.ReadLine()) != null)
             {
                 target.Predict(line);
-                Console.WriteLine("Predictor Trained on ... " + line);
+                if(isLog) Console.WriteLine("Predictor Trained on ... " + line);
                 counter++;
             }
             var endTime = DateTime.Now;
             var duration = endTime - beginTime;
 
+            if (!isLog) return;
             Console.WriteLine("---------------------------------------------------------------------------");
             Console.WriteLine("Trained " + counter + " lines for " + duration.TotalSeconds + "s");
             Console.WriteLine("***************************************************************************");
@@ -62,7 +65,7 @@ namespace PredictorTest
         /// Print out first 4 predictioins to Console
         /// </summary>
         /// <param name="predict"></param>
-        public static void PrintPredictions(List<string> predict)
+        public static void LogPredictions(List<string> predict)
         {
             // Assign count based on num entries 
             // To display no more than 4
