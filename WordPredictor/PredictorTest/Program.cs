@@ -11,7 +11,7 @@ namespace PredictorTest
         {
             // ** Instantiate predictor and train it ** //
             Predictor target = new Predictor();
-            BookTrain(target, "/Users/tyler.w.sriver/Downloads/training.txt");
+            BookTrain(target, "/Users/tyler.w.sriver/Documents/GitHub Repos/WordPredictor/WordPredictor/PredictorTest/training.txt");
             bool finish = false;
 
             do // ** Accept predict entries ** //
@@ -19,7 +19,6 @@ namespace PredictorTest
                 // Get Line and Print: 
                 string word = Console.ReadLine(); // Read input
                 var predictions = target.Predict(word); // Get Predictions
-                predictions = CleanEntries(predictions); // Clean the words
                 PrintPredictions(predictions); // Print the predictions
 
                 // Ending?
@@ -67,11 +66,11 @@ namespace PredictorTest
         {
             // Assign count based on num entries 
             // To display no more than 4
-            int count = 
-                ( predict.Count < 4 ) 
-                    ? predict.Count 
+            int count =
+                (predict.Count < 4)
+                    ? predict.Count
                     : 4;
-            
+
             Console.WriteLine("***************************************************************************");
             Console.WriteLine("Total Predictions: " + predict.Count);
             Console.WriteLine("---------------------------------------------------------------------------");
@@ -90,38 +89,5 @@ namespace PredictorTest
             Console.WriteLine();
             Console.WriteLine("---------------------------------------------------------------------------");
         }
-
-        /// <summary>
-        /// Clean predictions of erroneous special characters
-        /// </summary>
-        /// <param name="stringList"></param>
-        /// <returns></returns>
-        public static List<string> CleanEntries(List<string> stringList)
-        {
-            List<string> clean = new List<string>();
-            foreach (string word in stringList)
-            {
-                string cleanWord = word.Replace(".", "");
-                cleanWord = cleanWord.Replace(",", "");
-                cleanWord = cleanWord.Replace("'", "");
-                cleanWord = cleanWord.Replace("\"", "");
-                cleanWord = cleanWord.Replace(")", "");
-                cleanWord = cleanWord.Replace("(", "");
-                cleanWord = cleanWord.Replace(":", "");
-                cleanWord = cleanWord.Replace(";", "");
-                cleanWord = cleanWord.Replace("?", "");
-                cleanWord = cleanWord.Replace("!", "");
-                cleanWord = cleanWord.Replace("\\", "");
-                cleanWord = cleanWord.Replace("/", "");
-                cleanWord = cleanWord.Replace("`", "");
-                cleanWord = cleanWord.Replace("-", "");
-                cleanWord = cleanWord.Replace("~", "");
-                cleanWord = cleanWord.Replace("*", "");
-                cleanWord = cleanWord.Replace("=", "");
-                cleanWord = cleanWord.Replace("+", "");
-                clean.Add(cleanWord);
-            }
-            return clean;
-        } 
     }
 }

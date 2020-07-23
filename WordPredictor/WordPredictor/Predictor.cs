@@ -56,7 +56,7 @@ namespace WordPredictor
                 orderby x.Value descending
                 select x.Key).ToList();
 
-            return prediction;
+            return CleanEntries(prediction);
         }
         
         /// <summary>
@@ -75,6 +75,39 @@ namespace WordPredictor
             var t = Activator.CreateInstance<T>();
             d.Add(key, t);
             return t;
+        }
+
+        /// <summary>
+        /// Clean predictions of erroneous special characters
+        /// </summary>
+        /// <param name="stringList"></param>
+        /// <returns></returns>
+        public static List<string> CleanEntries(List<string> stringList)
+        {
+            var clean = new List<string>();
+            foreach (var word in stringList)
+            {
+                var cleanWord = word.Replace(".", "");
+                cleanWord = cleanWord.Replace(",", "");
+                cleanWord = cleanWord.Replace("'", "");
+                cleanWord = cleanWord.Replace("\"", "");
+                cleanWord = cleanWord.Replace(")", "");
+                cleanWord = cleanWord.Replace("(", "");
+                cleanWord = cleanWord.Replace(":", "");
+                cleanWord = cleanWord.Replace(";", "");
+                cleanWord = cleanWord.Replace("?", "");
+                cleanWord = cleanWord.Replace("!", "");
+                cleanWord = cleanWord.Replace("\\", "");
+                cleanWord = cleanWord.Replace("/", "");
+                cleanWord = cleanWord.Replace("`", "");
+                cleanWord = cleanWord.Replace("-", "");
+                cleanWord = cleanWord.Replace("~", "");
+                cleanWord = cleanWord.Replace("*", "");
+                cleanWord = cleanWord.Replace("=", "");
+                cleanWord = cleanWord.Replace("+", "");
+                clean.Add(cleanWord);
+            }
+            return clean;
         }
     }
 }
